@@ -13,7 +13,7 @@ export default class ItemList extends React.Component {
     removehotdog = async (event) => {
         event.preventDefault();
         console.warn('Remove hotdog: ' + this.props.element.hotdog);
-        await axios.post(`http://localhost:3001/removeHotDog`, {
+        await axios.post(`https://blooming-chamber-22236.herokuapp.com/removeHotDog`, {
             id: this.props.element.id
         }).then(() => {
             this.props.getList();

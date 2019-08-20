@@ -25,7 +25,7 @@ export default class List extends React.Component {
     }
 
     getList = async () => {
-        await axios.post(`http://localhost:3001/listHotDogs`).then(response => {
+        await axios.post(`https://blooming-chamber-22236.herokuapp.com/listHotDogs`).then(response => {
             console.warn(response.data);
             this.setState({
                 list: response.data.map((hotdog) => {

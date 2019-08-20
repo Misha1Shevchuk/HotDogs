@@ -25,7 +25,7 @@ export default class ChangeHotDogForm extends React.Component {
         event.preventDefault();
         if (this.state.newNameHotDog !== "") {
             console.warn('Change HotDog ' + this.props.element.hotdog + " to " + this.state.newNameHotDog);
-            await axios.post(`http://localhost:3001/changeHotDog`, {
+            await axios.post(`https://blooming-chamber-22236.herokuapp.com/changeHotDog`, {
                 id: this.props.element.id,
                 hotdog: this.state.newNameHotDog,
                 ingredients: this.state.ingredients

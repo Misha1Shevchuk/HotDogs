@@ -25,7 +25,7 @@ export default class NewHotDogForm extends React.Component {
         event.preventDefault();
         if (this.state.hotdog !== "") {
             console.warn('Add HotDog: ' + this.state.hotdog);
-            await axios.post(`http://localhost:3001/newHotDog`, {
+            await axios.post(`https://blooming-chamber-22236.herokuapp.com/newHotDog`, {
                 hotdog: this.state.hotdog,
                 ingredients: this.state.ingredients
             }).then(() => {
