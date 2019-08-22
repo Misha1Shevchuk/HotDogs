@@ -6,39 +6,38 @@ export default class NewHotDogForm extends React.Component {
         super(props)
         this.state = {
             hotdog: "",
-            ingredients: "",
+            description: "",
         }
-        this.handleChange = this.handleChangeIngredients.bind(this);
+        this.handleChange = this.handleChangeDescription.bind(this);
         this.handleChange = this.handleChangeName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeName = event => {
-        this.setState({ hotdog: event.target.value });
+        this.setState({ hotdog: event.target.value});
     }
 
-    handleChangeIngredients = event => {
-        this.setState({ ingredients: event.target.value });
+    handleChangeDescription = event => {
+        this.setState({ description: event.target.value });
     }
     
     handleSubmit = async event => {
         event.preventDefault();
-        if (this.state.hotdog !== "") {
-            console.warn('Add HotDog: ' + this.state.hotdog);
-            await axios.post(`https://blooming-chamber-22236.herokuapp.com/newHotDog`, {
-                hotdog: this.state.hotdog,
-                ingredients: this.state.ingredients
+        if (this.state.hotdog.trim() !== "") {
+            console.log('Add HotDog: ' + this.state.hotdog.trim());
+            await axios.post(`/newHotDog`, {
+                hotdog: this.state.hotdog.replace(/\s+/g,' ').trim(),
+                description: this.state.description.replace(/\s+/g,' ').trim()
             }).then(() => {
                 this.clearForm();
                 this.props.getList();
             })
         }
-        // додати перевірку
     }
 
     clearForm = () => {
         this.setState({ hotdog: "" });
-        this.setState({ingredients: ""});
+        this.setState({description: ""});
         this.props.toogleVisibilityForm();
     }
 
@@ -46,7 +45,7 @@ export default class NewHotDogForm extends React.Component {
         return (
             <form className="new-hotdog-form" name="form-send-hotdog" onSubmit={this.handleSubmit}>
                 <input type="text" value={this.state.hotdog} onChange={this.handleChangeName} className="new-hotdog-input" autoComplete="off" maxLength="90" placeholder="Name" /><br />
-                <textarea className="new-hotdog-ingredients" value={this.state.ingredients} onChange={this.handleChangeIngredients} placeholder="ingredients" maxLength="255"></textarea><br/>
+                <textarea className="new-hotdog-description" value={this.state.description} onChange={this.handleChangeDescription} placeholder="Description" maxLength="255"></textarea><br/>
                 <input type="submit" className="button-accept" value="Add" />
                 <input type="reset" onClick={this.clearForm} className="button-cancel" value="Cancel" />
             </form>

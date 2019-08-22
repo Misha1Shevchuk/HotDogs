@@ -1,13 +1,23 @@
+h1,
+h4 {
+    margin: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
 /* header */
 
 header {
     opacity: 0.9;
     position: fixed;
     top: 0;
-    width: 100%;
-    height: 46px;
-    padding: 7px;
+    width: 100vw;
+    height: 60px;
     background-color: #dd9b0e;
+    line-height: 60px;
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
@@ -15,18 +25,11 @@ header {
 }
 
 .logo {
-    font-size: 2em;
-    margin: -4px 15%;
+    display: inline-block;
+    font-size: 40px;
+    margin-left: 15%;
     color: #fff;
     font-family: 'Lexend Deca', sans-serif;
-}
-
-h1,
-h4 {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 
@@ -35,6 +38,7 @@ h4 {
 .container {
     background: url(https://jellytoastblog.com/wp-content/uploads/2016/06/homemade-hotdog-toppings-9-of-15.jpg);
     background-size: 35% auto;
+    background-attachment: fixed;
     width: 100%;
     min-height: 100vh;
     display: -webkit-box;
@@ -51,6 +55,11 @@ h4 {
     width: 50%;
     background-color: #fff;
     padding: 0 35px;
+}
+
+.content>h4 {
+    margin-top: 15px;
+    font-size: 1.5em;
 }
 
 
@@ -76,8 +85,8 @@ h4 {
     width: 80%;
 }
 
-.new-hotdog-ingredients,
-.change-hotdog-ingredients {
+.new-hotdog-description,
+.change-hotdog-description {
     margin-top: 10px;
     min-height: 4em;
     width: 95%;
@@ -90,7 +99,7 @@ h4 {
     font-size: 0.8em;
 }
 
-.change-hotdog-ingredients {
+.change-hotdog-description {
     width: 80%;
 }
 
@@ -143,8 +152,8 @@ h4 {
 .button-delete-item,
 .button-change-item {
     position: absolute;
-    top: 5px;
-    right: 30px;
+    top: 15px;
+    right: 40px;
     opacity: 0;
     margin-right: 10px;
     -webkit-user-select: none;
@@ -153,19 +162,31 @@ h4 {
     user-select: none;
     border: none;
     font-size: 1.2em;
-    background-color: #fff;
+    background-color: transparent;
     outline: none;
     padding: 5px;
     cursor: pointer;
+    border-radius: 3px;
+    transition: .3s all;
 }
 
 .button-delete-item {
+    padding: 7.5px;
+    top: 14px;
     right: 0;
 }
 
 .button-delete-item:hover,
 .button-change-item:hover {
-    color: #5d5d5d;
+    background-color: #ece1e14b;
+}
+
+.delete-img {
+    height: 20px;
+}
+
+.change-img {
+    height: 25px;
 }
 
 .item-hotdog:hover .button-delete-item,
@@ -203,8 +224,9 @@ h4 {
 /* list */
 
 .hotdogs-list {
-    margin-top: -25px;
-    margin-left: -30px;
+    padding-inline-start: 0;
+    padding: auto;
+    margin-top: 0px;
     margin-bottom: 0px;
     min-width: 100%;
 }
@@ -215,7 +237,6 @@ h4 {
     padding-top: 5px;
     padding-bottom: 5px;
     min-height: 2.1em;
-    width: 90%;
     border-bottom: 1px solid #e2dcdc;
 }
 
@@ -223,22 +244,34 @@ h4 {
     text-transform: capitalize;
     padding: 5px;
     display: inline-block;
+    word-wrap: break-word;
+    max-width: 80%;
 }
 
-#ingrediends-word {
+#description-word {
     font-size: 1em;
 }
 
-.hotdog-ingredients {
+.hotdog-description {
+    display: inline-block;
+    max-width: 80%;
+    word-wrap: break-word;
     font-size: 0.8em;
 }
 
-@media(max-width: 1000px) {
+@media(max-width: 800px) {
     .content {
-        width: 100%;
+        width: 92vw;
+        padding: 4vw;
     }
     .button-plus {
-        right: 3%;
+        right: 3vw;
+    }
+    .button-delete-item {
+        right: -15px;
+    }
+    .button-change-item {
+        right: 20px;
     }
 }
 

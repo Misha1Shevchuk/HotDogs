@@ -12,21 +12,27 @@ export default class List extends React.Component {
         };
     }
 
+    componentDidMount = () => {
+        this.getList();
+        alert("Прохання не змінювати позицій з хотдогами - створюйте нові. Дякую");
+    }
+    
     toogleVisibilityForm = () => {
         if (this.state.showForm) {
-            this.setState({ showForm: false })
+            this.setState({ showForm: false });
         } else {
-            this.setState({ showForm: true })
+            this.setState({ showForm: true });
+            this.scrollToBottom()
         }
     }
 
-    componentDidMount = () => {
-        this.getList();
-    }
+    scrollToBottom() {
+        this.el.scrollIntoView({ behavior: 'smooth', block: "end" });
+      }
 
     getList = async () => {
-        await axios.post(`https://blooming-chamber-22236.herokuapp.com/listHotDogs`).then(response => {
-            console.warn(response.data);
+        await axios.post(`/listHotDogs`).then(response => {
+            console.log(response.data);
             this.setState({
                 list: response.data.map((hotdog) => {
                     return (
@@ -41,7 +47,7 @@ export default class List extends React.Component {
         return (
             <div className="container">
                 <div className="content">
-                    <h4>HotDogs:</h4>
+                    <h4>Hot Dogs:</h4>
                     <ol className="hotdogs-list">
                         {this.state.list}
                     </ol>
@@ -52,6 +58,7 @@ export default class List extends React.Component {
                         {this.state.showForm ?
                             <NewHotDogForm getList={this.getList} toogleVisibilityForm={this.toogleVisibilityForm} />
                             : null}
+                            <div ref={el => { this.el = el; }} style={{height: 200 + 'px'}}/>
                     </div>
                 </div>
             </div>

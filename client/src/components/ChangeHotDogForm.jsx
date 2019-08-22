@@ -6,35 +6,34 @@ export default class ChangeHotDogForm extends React.Component {
         super(props);
         this.state = {
             newNameHotDog: this.props.element.hotdog,
-            ingredients: this.props.element.ingredients
+            description: this.props.element.description
         }
-        this.handleChange = this.handleChangeIngredients.bind(this);
+        this.handleChange = this.handleChangeDescription.bind(this);
         this.handleChange = this.handleChangeName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeName = event => {
+
         this.setState({ newNameHotDog: event.target.value });
     }
 
-    handleChangeIngredients = event => {
-        this.setState({ ingredients: event.target.value });
+    handleChangeDescription = event => {
+        this.setState({ description: event.target.value });
     }
 
     handleSubmit = async event => {
         event.preventDefault();
-        if (this.state.newNameHotDog !== "") {
-            console.warn('Change HotDog ' + this.props.element.hotdog + " to " + this.state.newNameHotDog);
-            await axios.post(`https://blooming-chamber-22236.herokuapp.com/changeHotDog`, {
+        if (this.state.newNameHotDog.trim() !== "") {
+            console.log('Change HotDog ' + this.props.element.hotdog.trim() + " to " + this.state.newNameHotDog.trim());
+            await axios.post(`/changeHotDog`, {
                 id: this.props.element.id,
-                hotdog: this.state.newNameHotDog,
-                ingredients: this.state.ingredients
+                hotdog: this.state.newNameHotDog.replace(/\s+/g,' ').trim(),
+                description: this.state.description.replace(/\s+/g,' ').trim()
             }).then(() => {
                 this.props.toggleVisibleChangeForm();
                 this.props.getList();
             })
-        } else {
-            console.log("Enter new name of hotdog");
         }
     }
 
@@ -42,7 +41,7 @@ export default class ChangeHotDogForm extends React.Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <input type="text"  className="change-hotdog-input" value={this.state.newNameHotDog} onChange={this.handleChangeName} maxLength="90"/><br/>
-                <textarea className="change-hotdog-ingredients" value={this.state.ingredients} onChange={this.handleChangeIngredients} placeholder="ingredients" maxLength="255"></textarea><br/>
+                <textarea className="change-hotdog-description" value={this.state.description} onChange={this.handleChangeDescription} placeholder="description" maxLength="255"></textarea><br/>
                 <input className="button-accept" type="submit" value="Change" />
                 <input className="button-cancel" type="reset" onClick={this.props.toggleVisibleChangeForm} value="Cancel" />
             </form>
