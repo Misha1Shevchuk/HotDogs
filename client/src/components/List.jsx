@@ -16,7 +16,7 @@ export default class List extends React.Component {
         this.getList();
         alert("Прохання не змінювати позицій з хотдогами - створюйте нові. Дякую");
     }
-    
+
     toogleVisibilityForm = () => {
         if (this.state.showForm) {
             this.setState({ showForm: false });
@@ -26,13 +26,14 @@ export default class List extends React.Component {
         }
     }
 
-    scrollToBottom() {
+    // when form visible - scroll to it
+    scrollToBottom = () => {
         this.el.scrollIntoView({ behavior: 'smooth', block: "end" });
-      }
+    }
 
+    // get list Hot Dogs from server
     getList = async () => {
         await axios.post(`/listHotDogs`).then(response => {
-            console.log(response.data);
             this.setState({
                 list: response.data.map((hotdog) => {
                     return (
@@ -43,7 +44,7 @@ export default class List extends React.Component {
         })
     }
 
-    render = () => {
+    render() {
         return (
             <div className="container">
                 <div className="content">
@@ -52,13 +53,10 @@ export default class List extends React.Component {
                         {this.state.list}
                     </ol>
                     <div className="new-hotdog-block">
-                        {!this.state.showForm ?
-                            <button onClick={this.toogleVisibilityForm} className="button-plus" >Add HotDog</button>
-                            : null}
                         {this.state.showForm ?
                             <NewHotDogForm getList={this.getList} toogleVisibilityForm={this.toogleVisibilityForm} />
-                            : null}
-                            <div ref={el => { this.el = el; }} style={{height: 200 + 'px'}}/>
+                            : <button onClick={this.toogleVisibilityForm} className="button-plus">Add HotDog</button>}
+                        <div ref={el => { this.el = el; }} style={{ height: 200 + 'px' }} />
                     </div>
                 </div>
             </div>

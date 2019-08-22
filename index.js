@@ -2,10 +2,11 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+// import controller
 const controller = require("./controller");
 controller.configure(app);
 
-// Serve static files from the React app
+// serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 

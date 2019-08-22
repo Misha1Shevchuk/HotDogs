@@ -8,27 +8,26 @@ module.exports = {
             res.sendStatus(200);
         });
 
-        // Get list hotDogs
+        // send list Hot Dogs to client
         app.post('/listHotDogs', (req, res) => {
             methodsDB.getHotDogs(res);
         });
 
-
-        // When sent form newHotDog:
+        // get new Hot Dog
         app.post('/newHotDog', jsonParser, (req, res) => {
             if (!req.body) return res.sendStatus(400);
             else res.sendStatus(200);
             methodsDB.addHotDog(req.body);
         });
 
-        // Remove HotDog
+        // remove HotDog
         app.post('/removeHotDog', jsonParser, (req, res) => {
             if (!req.body) return res.sendStatus(400);
             else res.sendStatus(200);
             methodsDB.removeHotDog(req.body);
         });
 
-        // Change HotDog
+        // change Hot Dog
         app.post('/changeHotDog', jsonParser, (req, res) => {
             if (!req.body) return res.sendStatus(400);
             else res.sendStatus(200);

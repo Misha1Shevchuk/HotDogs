@@ -14,7 +14,6 @@ export default class ChangeHotDogForm extends React.Component {
     }
 
     handleChangeName = event => {
-
         this.setState({ newNameHotDog: event.target.value });
     }
 
@@ -25,7 +24,6 @@ export default class ChangeHotDogForm extends React.Component {
     handleSubmit = async event => {
         event.preventDefault();
         if (this.state.newNameHotDog.trim() !== "") {
-            console.log('Change HotDog ' + this.props.element.hotdog.trim() + " to " + this.state.newNameHotDog.trim());
             await axios.post(`/changeHotDog`, {
                 id: this.props.element.id,
                 hotdog: this.state.newNameHotDog.replace(/\s+/g,' ').trim(),
@@ -37,7 +35,7 @@ export default class ChangeHotDogForm extends React.Component {
         }
     }
 
-    render = () => {
+    render() {
         return (
             <form onSubmit={this.handleSubmit}>
                 <input type="text"  className="change-hotdog-input" value={this.state.newNameHotDog} onChange={this.handleChangeName} maxLength="90"/><br/>
