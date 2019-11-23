@@ -15,34 +15,33 @@ export default class List extends React.Component {
     componentDidMount = () => {
         this.getList();
         alert("Прохання не змінювати позицій з хотдогами - створюйте нові. Дякую");
-    }
+    };
 
     toogleVisibilityForm = () => {
         if (this.state.showForm) {
-            this.setState({ showForm: false });
+            this.setState({showForm: false});
         } else {
-            this.setState({ showForm: true });
+            this.setState({showForm: true});
             this.scrollToBottom()
         }
-    }
+    };
 
     // when form visible - scroll to it
     scrollToBottom = () => {
-        this.el.scrollIntoView({ behavior: 'smooth', block: "end" });
-    }
+        this.el.scrollIntoView({behavior: 'smooth', block: "end"});
+    };
 
     // get list Hot Dogs from server
     getList = async () => {
-        await axios.post(`/listHotDogs`).then(response => {
-            this.setState({
-                list: response.data.map((hotdog) => {
-                    return (
-                        <ItemList getList={this.getList} key={hotdog.id} element={hotdog} />
-                    )
-                })
+        const hotDogs = await axios.get(`/api/hotdogs`);
+        this.setState({
+            list: hotDogs.data.map((hotDog) => {
+                return (
+                    <ItemList getList={this.getList} key={hotDog._id} element={hotDog}/>
+                )
             })
-        })
-    }
+        });
+    };
 
     render() {
         return (
@@ -54,9 +53,11 @@ export default class List extends React.Component {
                     </ol>
                     <div className="new-hotdog-block">
                         {this.state.showForm ?
-                            <NewHotDogForm getList={this.getList} toogleVisibilityForm={this.toogleVisibilityForm} />
+                            <NewHotDogForm getList={this.getList} toogleVisibilityForm={this.toogleVisibilityForm}/>
                             : <button onClick={this.toogleVisibilityForm} className="button-plus">Add HotDog</button>}
-                        <div ref={el => { this.el = el; }} style={{ height: 200 + 'px' }} />
+                        <div ref={el => {
+                            this.el = el;
+                        }} style={{height: 200 + 'px'}}/>
                     </div>
                 </div>
             </div>
