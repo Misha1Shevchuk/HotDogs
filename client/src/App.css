@@ -57,7 +57,7 @@ header {
     padding: 0 35px;
 }
 
-.content>h4 {
+.content > h4 {
     margin-top: 15px;
     font-size: 1.5em;
 }
@@ -259,23 +259,26 @@ header {
     font-size: 0.8em;
 }
 
-@media(max-width: 800px) {
+@media (max-width: 800px) {
     .content {
         width: 92vw;
         padding: 4vw;
     }
+
     .button-plus {
         right: 3vw;
     }
+
     .button-delete-item {
         right: -15px;
     }
+
     .button-change-item {
         right: 20px;
     }
 }
 
-@media(min-width: 1300px) {
+@media (min-width: 1300px) {
     * {
         font-size: 20px;
     }
