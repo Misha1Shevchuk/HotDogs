@@ -14,7 +14,6 @@ export default class List extends React.Component {
 
     componentDidMount = () => {
         this.getList();
-        alert("Прохання не змінювати позицій з хотдогами - створюйте нові. Дякую");
     };
 
     toogleVisibilityForm = () => {

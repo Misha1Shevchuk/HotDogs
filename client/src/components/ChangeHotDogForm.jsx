@@ -24,7 +24,7 @@ export default class ChangeHotDogForm extends React.Component {
     handleSubmit = async event => {
         event.preventDefault();
         if (this.state.newNameHotDog.trim() !== "") {
-            await axios.put(`http://localhost:3001/api/hotdogs`, {
+            await axios.put(`/api/hotdogs`, {
                 _id: this.props.element._id,
                 name: this.state.newNameHotDog.replace(/\s+/g, ' ').trim(),
                 description: this.state.description.replace(/\s+/g, ' ').trim()
