@@ -10,21 +10,23 @@ const app = express();
 
 app.use(cors());
 app.use(require('body-parser').json());
+
 app.use('/api/hotdogs', router);
-// serve static files from the React app
+
 app.use(express.static(path.join(__dirname, 'client/build')));
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
+
 const port = process.env.PORT || 3001;
-let server = app.listen(port, () => {
+
+const server = app.listen(port, () => {
     console.log('Server Listening on port ' + server.address().port);
 });
 
-
-
 mongoose.connect(
     process.env.CONNECT_DB,
-    {useNewUrlParser: true, useUnifiedTopology: true},
+    { useNewUrlParser: true, useUnifiedTopology: true },
     () => console.log("Connected to DB")
 );
