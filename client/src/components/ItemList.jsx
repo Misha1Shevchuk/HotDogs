@@ -5,46 +5,51 @@ import ChangeHotDogForm from './ChangeHotDogForm';
 export default class ItemList extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            showChangehotdogForm: false
+            showChangehotdogForm: false,
         }
     }
 
-    // Delete Hot Dog
-    removehotdog = async (event) => {
+    removeHotDog = event => {
         event.preventDefault();
-        await axios.delete(`/api/hotdogs?_id=${this.props.element._id}`)
-            .then(() => {
-                this.props.getList();
-            })
+        axios.delete(`/api/hotdogs?_id=${this.props.element._id}`)
+            .then(() => this.props.getList());
     };
 
-    // Change visible form "Change Hot Dog"
     toggleVisibleChangeForm = () => {
-        if (this.state.showChangehotdogForm === false) {
-            this.setState({showChangehotdogForm: true});
-        } else {
-            this.setState({showChangehotdogForm: false});
-        }
+        const newState = !this.state.showChangehotdogForm;
+        this.setState({showChangehotdogForm: newState});
     };
 
     render() {
+        const {element, getList} = this.props;
+        
         return (
             <li className="item-hotdog">
-                <b className="hotdog-name"> {this.props.element.name} </b><br/>
+                <b className="hotdog-name"> {element.name} </b>
+                <br/>
                 <span className="hotdog-description">
                     <span id="description-word">Description: </span>
-                    {this.props.element.description}
+                    {element.description}
                 </span>
-                {this.state.showChangehotdogForm ?
-                    <ChangeHotDogForm toggleVisibleChangeForm={this.toggleVisibleChangeForm}
-                                      getList={this.props.getList} element={this.props.element}/>
+                {this.state.showChangehotdogForm 
+                    ? <ChangeHotDogForm toggleVisibleChangeForm={this.toggleVisibleChangeForm}
+                                        getList={getList} 
+                                        element={element}
+                      />
                     : null}
-                <button onClick={this.removehotdog} className="button-delete-item">
-                    <img className="delete-img" src="img/delete.png" alt="delete"/>
+                <button onClick={this.removeHotDog} 
+                        className="button-delete-item">
+                    <img className="delete-img" 
+                        src="img/delete.png" 
+                        alt="delete"/>
                 </button>
-                <button onClick={this.toggleVisibleChangeForm} className="button-change-item">
-                    <img className="change-img" src="img/change.png" alt="change"/>
+                <button onClick={this.toggleVisibleChangeForm} 
+                        className="button-change-item">
+                    <img className="change-img" 
+                        src="img/change.png" 
+                        alt="change"/>
                 </button>
             </li>
         );
